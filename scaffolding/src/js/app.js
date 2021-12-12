@@ -39,9 +39,6 @@ App = {
 
       // Set the provider for our contract
       App.contracts.Idle.setProvider(App.web3Provider);
-
-      // Use our contract to retrieve and mark the adopted pets
-      //return App.markAdopted();
       return 0;
     });
 
@@ -55,39 +52,22 @@ App = {
     $(document).on('click', '.btn-idle', App.startIdle);
     $(document).on('click', '.btn-woodcutting', App.startWoodcutting);
     $(document).on('click', '.btn-mining', App.startMining);
-    $(document).on('click', '#btn-buy-hatchet', {upgrade_id: 0}, App.buyUpgrade);
-    $(document).on('click', '#btn-buy-pickaxe', {upgrade_id: 1}, App.buyUpgrade);
-    $(document).on('click', '#btn-buy-kindle', {upgrade_id: 2}, App.buyUpgrade);
-    $(document).on('click', '#btn-buy-furnace', {upgrade_id: 3}, App.buyUpgrade);
-    $(document).on('click', '#btn-buy-manager-woodcutting', {upgrade_id: 4}, App.buyUpgrade);
-    $(document).on('click', '#btn-buy-manager-mining', {upgrade_id: 5}, App.buyUpgrade);
-    $(document).on('click', '#btn-buy-manager-firemaking', {upgrade_id: 6}, App.buyUpgrade);
-    $(document).on('click', '#btn-buy-manager-smithing', {upgrade_id: 7}, App.buyUpgrade);
-    $(document).on('click', '#btn-sell-logs', {resource_id: 1}, App.sellResource);
-    $(document).on('click', '#btn-sell-ore', {resource_id: 2}, App.sellResource);
-    $(document).on('click', '#btn-sell-charcoal', {resource_id: 3}, App.sellResource);
-    $(document).on('click', '#btn-sell-bars', {resource_id: 4}, App.sellResource);
-  },
-
-  markAdopted: function() {
-    var idleInstance;
-    App.contracts.Idle.deployed().then(function(instance) {
-      idleInstance = instance;
-
-      return idleInstance.getAdopters.call();
-    }).then(function(adopters) {
-      for (i = 0; i < adopters.length; i++) {
-        if (adopters[i] !== '0x0000000000000000000000000000000000000000') {
-          $('.panel-pet').eq(i).find('button').text('Success').attr('disabled', true);
-        }
-      }
-    }).catch(function(err) {
-      console.log(err.message);
-    });
+    $(document).on('click', '#btn-buy-hatchet', {upgrade_id: 0, amount: 1}, App.buyUpgrade);
+    $(document).on('click', '#btn-buy-pickaxe', {upgrade_id: 1, amount: 1}, App.buyUpgrade);
+    $(document).on('click', '#btn-buy-kindle', {upgrade_id: 2, amount: 1}, App.buyUpgrade);
+    $(document).on('click', '#btn-buy-furnace', {upgrade_id: 3, amount: 1}, App.buyUpgrade);
+    $(document).on('click', '#btn-buy-manager-woodcutting', {upgrade_id: 4, amount: 1}, App.buyUpgrade);
+    $(document).on('click', '#btn-buy-manager-mining', {upgrade_id: 5, amount: 1}, App.buyUpgrade);
+    $(document).on('click', '#btn-buy-manager-firemaking', {upgrade_id: 6, amount: 1}, App.buyUpgrade);
+    $(document).on('click', '#btn-buy-manager-smithing', {upgrade_id: 7, amount: 1}, App.buyUpgrade);
+    $(document).on('click', '#btn-sell-logs', {resource_id: 1, amount: 1}, App.sellResource);
+    $(document).on('click', '#btn-sell-ore', {resource_id: 2, amount: 1}, App.sellResource);
+    $(document).on('click', '#btn-sell-charcoal', {resource_id: 3, amount: 1}, App.sellResource);
+    $(document).on('click', '#btn-sell-bars', {resource_id: 4, amount: 1}, App.sellResource);
   },
 
   fetchValues: function(event) {
-    event.preventDefault();
+    if(event != null) event.preventDefault();
     var return_balance = 0;
     var idleInstance;
     App.contracts.Idle.deployed().then(function(instance) {
@@ -153,7 +133,7 @@ App = {
 
   initAccount: function(event) {
     console.log('init');
-    event.preventDefault();
+    if(event != null) event.preventDefault();
 
     var idleInstance;
     web3.eth.getAccounts(function(error, accounts) {
@@ -178,7 +158,7 @@ App = {
   
   updateValues: function(event) {
     console.log('update');
-    event.preventDefault();
+    if(event != null) event.preventDefault();
 
     var idleInstance;
     web3.eth.getAccounts(function(error, accounts) {
@@ -202,7 +182,7 @@ App = {
   },
 
   startWoodcutting: function(event) {
-    event.preventDefault();
+    if(event != null) event.preventDefault();
 
     var idleInstance;
     web3.eth.getAccounts(function(error, accounts) {
@@ -222,7 +202,7 @@ App = {
     });
   },
   startMining: function(event) {
-    event.preventDefault();
+    if(event != null) event.preventDefault();
 
     var idleInstance;
     web3.eth.getAccounts(function(error, accounts) {
@@ -242,7 +222,7 @@ App = {
     });
   },
   startIdle: function(event) {
-    event.preventDefault();
+    if(event != null) event.preventDefault();
     var idleInstance;
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
@@ -261,8 +241,9 @@ App = {
     });
   },
   buyUpgrade: function(event){
-    event.preventDefault();
+    if(event != null) event.preventDefault();
     upgrade_id = event.data.upgrade_id
+    amount = event.data.amount
     var idleInstance;
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
@@ -272,7 +253,7 @@ App = {
       App.contracts.Idle.deployed().then(function(instance) {
         idleInstance = instance;
         // Execute adopt as a transaction by sending account
-        return idleInstance.purchaseUpgrade(upgrade_id, 1,{from: account});
+        return idleInstance.purchaseUpgrade(upgrade_id, amount,{from: account});
       }).then(function(result) {
         return App.fetchValues();
       }).catch(function(err) {
@@ -281,8 +262,9 @@ App = {
     });
   },
   sellResource: function(event){
-    event.preventDefault();
+    if(event != null) event.preventDefault();
     resource_id = event.data.resource_id
+    amount = event.data.amount
     var idleInstance;
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
@@ -292,7 +274,7 @@ App = {
       App.contracts.Idle.deployed().then(function(instance) {
         idleInstance = instance;
         // Execute adopt as a transaction by sending account
-        return idleInstance.sellMoonies(resource_id, 1,{from: account});
+        return idleInstance.sellMoonies(resource_id, amount,{from: account});
       }).then(function(result) {
         return App.fetchValues();
       }).catch(function(err) {
