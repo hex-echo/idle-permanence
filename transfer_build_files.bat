@@ -1,0 +1,1 @@
+copy unity_project\build_webgl\Build\* scaffolding\src\build
