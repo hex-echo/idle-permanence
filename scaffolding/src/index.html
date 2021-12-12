@@ -11,7 +11,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,14 +24,27 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <h1 class="text-center">Pete's Petless Shop</h1>
+          <h1 class="text-center" id='current_action_text'>Current action: ???</h1>
           <button class = 'btn-fetch'>Fetch</button>
           <button class = 'btn-init'>Init</button>
           <button class = 'btn-update'>Update</button>
+          <button class = 'btn-idle'>Idle</button>
+          <button class = 'btn-woodcutting'>Cut wood</button>
+          <button class = 'btn-mining'>Mine</button>
           <hr/>
-          <span id = 'balance-text'>Balance: ?</span> <br/>
-          <span id = 'manager-count-text'>Number of managers: ?</span> <br/>
-          <span id = 'manager-factor-text'>Upgrades: ?</span> <br/>
+          <span id = 'balance-text'>Moonie: ?</span> <br/>
+          <span id = 'log-text'>Logs: ?</span> <button id='btn-sell-logs'> Sell </button> <br/>
+          <span id = 'ore-text'>Ore: ?</span></span> <button id='btn-sell-ore'> Sell </button> <br/>
+          <span id = 'charcoal-text'>Charcoal: ?</span> <button id='btn-sell-charcoal'> Sell </button> <br/>
+          <span id = 'bar-text'>Bars: ?</span> <button id='btn-sell-bars'> Sell </button> <br/>
+          <span id = 'upgrade-hatchet-text'>Hatchets: ?</span> <button id = 'btn-buy-hatchet'> Buy </button><br/>
+          <span id = 'upgrade-pickaxe-text'>Pickaxe: ?</span> <button id = 'btn-buy-pickaxe'> Buy </button> <br/>
+          <span id = 'upgrade-kindle-text'>Kindle: ?</span> <button id = 'btn-buy-kindle'> Buy </button> <br/>
+          <span id = 'upgrade-furnace-text'>Furnaces: ?</span> <button id = 'btn-buy-furnace'> Buy </button> <br/>
+          <span id = 'upgrade-manager-woodcutting-text'>Woodcutting managers: ?</span> <button id = 'btn-buy-manager-woodcutting'>Buy</button> <br/>
+          <span id = 'upgrade-manager-mining-text'>Mining managers: ?</span> <button id = 'btn-buy-manager-mining'> Buy </button><br/>
+          <span id = 'upgrade-manager-firemaking-text'>Firemaking managers: ?</span> <button id = 'btn-buy-manager-firemaking'> Buy </button> <br/>
+          <span id = 'upgrade-manager-smithing-text'>Smithing managers: ?</span> <button id = 'btn-buy-manager-smithing'> Buy </button> <br/>
         </div>
       </div>
     </div>
